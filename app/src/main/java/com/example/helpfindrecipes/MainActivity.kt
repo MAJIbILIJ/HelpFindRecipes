@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         b.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch() {
-                val recipe = recipeApi.getRecipeById()
+                val recipe = recipeApi.getRecipeById(3)
                 runOnUiThread {
                     tv.text = recipe.name
                 }
