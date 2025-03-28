@@ -11,6 +11,8 @@ import com.example.recipes.retrofit.RecipeApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -25,11 +27,18 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(interceptor)
+            .build()
+
         val tv = findViewById<TextView>(R.id.tv)
         val b = findViewById<Button>(R.id.button)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://dummyjson.com")
+            .baseUrl("https://dummyjson.com").client(client)
             .addConverterFactory(GsonConverterFactory.create()).build()
         val recipeApi = retrofit.create(RecipeApi::class.java)
 
