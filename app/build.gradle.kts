@@ -34,11 +34,16 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
-
 dependencies {
     implementation (libs.retrofit)
     implementation (libs.retrofit2.converter.gson)
+
+
+
 
     implementation (libs.okhttp)
     implementation (libs.logging.interceptor)
