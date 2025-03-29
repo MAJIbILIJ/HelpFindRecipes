@@ -1,11 +1,8 @@
 package com.example.helpfindrecipes
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.SearchView
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.helpfindrecipes.adapter.RecipeAdapter
 import com.example.helpfindrecipes.databinding.ActivityMainBinding
@@ -49,6 +46,8 @@ class MainActivity : AppCompatActivity() {
             .addConverterFactory(GsonConverterFactory.create()).build()
         val recipeApi = retrofit.create(RecipeApi::class.java)
 
+
+
         binding.sv.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -59,6 +58,7 @@ class MainActivity : AppCompatActivity() {
                     val list = text?.let { recipeApi.getRecipesByName(it) }
 //            val recipe = recipeApi.getRecipeById(3)
                     runOnUiThread {
+
                         binding.apply{
                             adapter.submitList(list?.recipes)
                         }
